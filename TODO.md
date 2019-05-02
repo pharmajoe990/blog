@@ -15,4 +15,5 @@
 * Testing
   * Property Testing
 
-
+* Other?
+  * VIM vs. Emacs
