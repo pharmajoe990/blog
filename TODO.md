@@ -4,6 +4,7 @@
   * Command?
   * Builder
   * Strategy
+  * Repository
 
 * Functional stuff (Elixir examples)
   * Currying (WIP)
