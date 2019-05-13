@@ -1,11 +1,15 @@
 ---
 layout: post
-title:  "Stategy Pattern"
-date:   ?? 
+title:  "Strategy Pattern"
+date:   2019-05-13 19:53:00 +1100
 categories: OO Pattern development
 ---
 
-A brain dump of the Strategy pattern and a real world use case. Since Java is one of the more used OO Languages that's what the example is in, however it applies to other OO languages as well. This pattern was introduced in the original GOF Design Patterns book. 
+### Update
+
+A brain dump of the Strategy pattern and a real world use case. Since Java is one of the more used OO Languages that's what the example is in, however it applies to other OO languages as well. This pattern was introduced in the original GOF Design Patterns book.
+
+This is a fairly old note that I made and recovered from a deep, dark location in my home directory.
 
 ## Why?
 
@@ -13,7 +17,7 @@ The Strategy Pattern is a way for a program to select a piece of code to execute
 
 ## Example
 
-This example uses the strategy pattern to apply logic based on differing attributes of an Object, which enables the use of a singular algorithm implmentation. The requirement is to synchronise the attributes of an **Account** or **Header** Object, which implement a shared interface **Child**, I'll refer to both of these implmentations as a Child. The Child attributes may have become stale in a dependant downstream system (regardless of this being a bad design decision). Account and Header objects make up a tree structure together, where each node is an account or header. Header Objects can include references to Child Accounts or Headers, and Accounts cannot include references to other nodes.
+This example uses the strategy pattern to apply logic based on differing attributes of an Object, which enables the use of a singular algorithm implementation. The requirement is to synchronise the attributes of an **Account** or **Header** Object, which implement a shared interface **Child**, I'll refer to both of these implementations as a Child. The Child attributes may have become stale in a dependant downstream system (regardless of this being a bad design decision). Account and Header objects make up a tree structure together, where each node is an account or header. Header Objects can include references to Child Accounts or Headers, and Accounts cannot include references to other nodes.
 
 **Child**
 
@@ -88,7 +92,7 @@ public class ById implements LookupStrategy {
 }
 ```
 
-Based on this implementation, the Interfact method can be used to inject, at runtime, the correct Child's lookup attribute. Here is the usage of this in the final synchronisation method. In the `updateView` method, the `accountsView` argument represents the structure to be synchronised, while the `accounts` is the source data to synchronise the target.
+Based on this implementation, the Interface method can be used to inject, at runtime, the correct Child's lookup attribute. Here is the usage of this in the final synchronisation method. In the `updateView` method, the `accountsView` argument represents the structure to be synchronised, while the `accounts` is the source data to synchronise the target.
 
 ```
 public void updateView(AccountsView accountsView, AccountList accounts) {
