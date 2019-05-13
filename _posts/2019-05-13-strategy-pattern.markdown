@@ -21,7 +21,7 @@ This example uses the strategy pattern to apply logic based on differing attribu
 
 **Child**
 
-```
+```java
 public interface Child {
 
   String getType();
@@ -36,7 +36,7 @@ public interface Child {
 
 **Account**
 
-```
+```java
 public Class Account implements Child {
   private String id;
   
@@ -48,7 +48,7 @@ public Class Account implements Child {
 
 **Header**
 
-```
+```java
 public Class Header implements Child {
   private String number;
   
@@ -69,7 +69,7 @@ The Strategy Implementation uses the following Interface which each lookup Strat
 
 **LookupStrategy**
 
-```
+```java
 public interface LookupStrategy {
   String get(Child child);
 }
@@ -77,7 +77,7 @@ public interface LookupStrategy {
 
 **ById**
 
-```
+```java
 public class ById implements LookupStrategy {
   @Override public String get(Child child) {
     return account.getId();
@@ -86,7 +86,8 @@ public class ById implements LookupStrategy {
 ```
 
 **ByNumber**
-```
+
+```java
 @Override public String get(Child child) {
   return account.getNumber();
 }
@@ -94,12 +95,18 @@ public class ById implements LookupStrategy {
 
 Based on this implementation, the Interface method can be used to inject, at runtime, the correct Child's lookup attribute. Here is the usage of this in the final synchronisation method. In the `updateView` method, the `accountsView` argument represents the structure to be synchronised, while the `accounts` is the source data to synchronise the target.
 
-```
+```java
 public void updateView(AccountsView accountsView, AccountList accounts) {
 
-  Map<String, AccountInfo> accountIdToInfoMap = accounts != null ? accounts.createIdToAccountsMap() : new HashMap<>();
+  Map<String, AccountInfo> accountIdToInfoMap = accounts != null 
+    ? accounts.createIdToAccountsMap()
+    : new HashMap<>();
 
-  accountsView.getChildren().forEach(child -> accountInfoSynchronizer.synchronizeNode(child, accountIdToInfoMap, LookupStrategy.get(child)));
+  accountsView
+    .getChildren()
+    .forEach(child -> 
+        accountInfoSynchronizer.synchronizeNode(child, accountIdToInfoMap, LookupStrategy.get(child))
+    );
 
   accountClassificationSynchronizer.removeInvalidAccountsFromClassification(accountsView, accountIdToInfoMap);
   addMissingAccountsToView(accountsView, accountIdToInfoMap);
